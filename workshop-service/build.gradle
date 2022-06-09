@@ -1,4 +1,7 @@
 buildscript {
+    ext {
+        springVersion = project.properties.get("spring.version")
+    }
     repositories {
         mavenLocal()
         mavenCentral()
@@ -6,15 +9,15 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.6.21'
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.6.21'
-    id 'org.springframework.boot' version '2.7.0'
+    id "org.jetbrains.kotlin.jvm" version "1.6.21"
+    id "org.jetbrains.kotlin.plugin.spring" version "1.6.21"
+    id "org.springframework.boot" version "2.7.0"
 }
 
 dependencies {
-    implementation platform('org.springframework.boot:spring-boot-dependencies:2.7.0')
+    implementation platform("org.springframework.boot:spring-boot-dependencies:$springVersion")
 
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springframework.boot:spring-boot-starter-web"
 }
 
 repositories {
