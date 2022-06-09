@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.6.21'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.6.21'
+    id 'org.springframework.boot' version '2.7.0'
+}
+
+dependencies {
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.7.0')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}

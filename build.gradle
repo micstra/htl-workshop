@@ -1,0 +1,7 @@
+version = 1.0
+group = "io.cloudflight.htl-workshop"
+
+subprojects { proj ->
+    proj.version = parent.version
+    proj.group = parent.group
+}
