@@ -1,0 +1,6 @@
+rootProject.name = 'htl-workshop'
+
+include 'workshop-api'
+include 'workshop-ui'
+include 'workshop-db'
+include 'workshop-service'
