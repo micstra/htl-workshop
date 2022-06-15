@@ -12,9 +12,12 @@ plugins {
     id "org.jetbrains.kotlin.jvm" version "1.6.21"
     id "org.jetbrains.kotlin.plugin.spring" version "1.6.21"
     id "org.springframework.boot" version "2.7.0"
+    id "org.openapi.generator" version "6.0.0"
 }
 
 dependencies {
+    // configure spring-boot-platform-versions
+    // this enables to omit version-numbers is you include a dependency used by spring-boot
     implementation platform("org.springframework.boot:spring-boot-dependencies:$springVersion")
 
     implementation "org.springframework.boot:spring-boot-starter-web"
@@ -24,3 +27,43 @@ repositories {
     mavenLocal()
     mavenCentral()
 }
+
+
+// ############### here starts the api-generation-configuration ##################################
+
+openApiGenerate {
+    inputSpec = project(":workshop-api").file('openapi.yaml').canonicalPath
+    generatorName = "spring"
+    outputDir = file("/target/generated-server/").canonicalPath
+    apiPackage = "io.cloudflight.workshop.api"
+    modelPackage = "io.cloudflight.workshop.api.model"
+
+    additionalProperties = [
+            "useTags"              : true, // use tags as prefix for generated apis
+            "documentationProvider": "none", // do not include swagger-metadata annotations
+            "gradleBuildFile"      : false,
+            "exceptionHandler"     : false,
+            "delegatePattern"      : true,
+            "useBeanValidation"    : false,
+            "openApiNullable"      : false
+    ]
+}
+
+task cleanTarget(type: Delete) {
+    delete "target"
+}
+
+clean {
+    dependsOn(cleanTarget)
+}
+
+// delete target-folder before regenerating to prevent error-prone file-merging
+tasks.findByName("openApiGenerate").dependsOn(cleanTarget)
+
+sourceSets {
+    main {
+        java.srcDir("$projectDir/target/generated-server/src/main/java")
+    }
+}
+
+// ############### here ends the api-generation-configuration ###################################

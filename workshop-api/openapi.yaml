@@ -1,0 +1,45 @@
+openapi: "3.0.0"
+info:
+  title: HTL-Workshop API
+  version: 1.0.0
+  description: >-
+    The API based on the lab-description
+  contact:
+    name: Cloudflight
+    url: 'https://cloudflight.io'
+servers:
+  - url: http://localhost:8080
+
+
+paths:
+  /api/employees:
+    description: Receive a list of all employees
+    get:
+      operationId: findAllEmployees
+      tags:
+        - employee
+      responses:
+        '200':
+          description: An array of all exisiting employees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ReadEmployeeDto"
+
+components:
+  schemas:
+    ReadEmployeeDto:
+      required:
+        - id
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: string
+          description: "The identifier of a single employee"
+        firstName:
+          type: string
+        lastName:
+          type: string
