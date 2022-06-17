@@ -2,10 +2,6 @@ buildscript {
     ext {
         springVersion = project.properties.get("spring.version")
     }
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
 }
 
 plugins {
@@ -19,6 +15,8 @@ dependencies {
     // configure spring-boot-platform-versions
     // this enables to omit version-numbers is you include a dependency used by spring-boot
     implementation platform("org.springframework.boot:spring-boot-dependencies:$springVersion")
+
+    implementation project(":workshop-db")
 
     implementation "org.springframework.boot:spring-boot-starter-web"
 }
