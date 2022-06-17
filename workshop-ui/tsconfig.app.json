@@ -3,6 +3,7 @@
   "include": [
     "env.d.ts",
     "src/**/*",
+    "target/**/*",
     "src/**/*.vue",
     "src/locales/*.json",
     "node_modules/@types/node/globals.d.ts"
@@ -10,9 +11,11 @@
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
+    "preserveValueImports": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "workshop-client/*": ["./target/*"]
     },
     "allowJs": true
   },

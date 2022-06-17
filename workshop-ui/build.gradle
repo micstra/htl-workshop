@@ -1,0 +1,38 @@
+plugins {
+    id "org.openapi.generator" version "6.0.0"
+    id "com.github.node-gradle.node" version "3.3.0"
+
+}
+
+// ################## here starts openapi-plugin-configuration #########################
+
+openApiGenerate {
+    inputSpec = project(":workshop-api").file('openapi.yaml').canonicalPath
+    generatorName = "typescript-fetch"
+    outputDir = file("/target/generated-client/").canonicalPath
+
+}
+
+task cleanTarget(type: Delete) {
+    delete = 'target'
+}
+
+tasks.findByName("openApiGenerate").dependsOn(cleanTarget)
+
+// ################## here ends openapi-plugin-configuration #########################
+
+
+
+// ################## here starts node-plugin-configuration #########################
+
+node {
+    download = true
+    version = '16.15.0'
+    yarnVersion = '1.22.18'
+}
+
+task npmBuild(type: NpmTask) {
+    args = ["run", "build"]
+}
+
+// ################## here ends node-plugin-configuration #########################
