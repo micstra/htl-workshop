@@ -1,0 +1,13 @@
+services:
+  storage:
+    container_name: workshop-db
+    image: postgres:14.2
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-volume:/var/lib/postgresql/
+volumes:
+  postgres-volume: {}

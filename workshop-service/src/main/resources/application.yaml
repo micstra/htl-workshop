@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: none
+    database: postgresql
+  sql:
+    init:
+      mode: always
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/workshop"
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
