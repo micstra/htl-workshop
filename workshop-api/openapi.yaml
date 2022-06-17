@@ -8,7 +8,7 @@ info:
     name: Cloudflight
     url: 'https://cloudflight.io'
 servers:
-  - url: http://localhost:8080
+  - url: /backend
 
 
 paths:

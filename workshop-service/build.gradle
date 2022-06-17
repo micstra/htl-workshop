@@ -53,11 +53,8 @@ task cleanTarget(type: Delete) {
     delete "target"
 }
 
-clean {
-    dependsOn(cleanTarget)
-}
-
 // delete target-folder before regenerating to prevent error-prone file-merging
+tasks.findByName("clean").dependsOn(cleanTarget)
 tasks.findByName("openApiGenerate").dependsOn(cleanTarget)
 
 sourceSets {
