@@ -111,6 +111,34 @@ weitergeleitet werden. Damit erspart man sich das CORS-Mapping im Backend, da es
 gäbe es nur ein Backend (Origin). Natürlich muss sichergestellt werden, dass alle Backend-Aufrufe sich einen gemeinsamen
 Kontext-Pfad teilen, so wie hier `/api`.  
 
+## Verwendete Frameworks / Technologien
+
+### Vue i18n
+Um irgendwann die Sprache des Frontends zu ändern, schreiben wir die Übersetzungen nicht direkt in die Vue-Templates,
+sondern in ein JSON File `de.json`. Danach referenzieren wir diese Übersetzungen mittels dem JSON Key und lassen
+uns dadurch die Möglichkeit offen, die Sprache zur Laufzeit zu wechseln.
+
+Die Konfiguration dafür liegt in dem File `workshop-ui/src/i18n.js`, dort werden die unterstützen
+Sprachen festgelegt, die JSONs für die jeweiligen Sprachen liegen in `workshop-ui/src/locales`.
+
+### PrimeFaces / PrimeVue
+Da wir ein gewöhnliches Admin-Frontend bauen, nutzen wir eine OpenSource Kompenentenbibliothek.
+Eine genaue Setup-Anleitung gibts es unter
+https://www.primefaces.org/primevue/setup
+
+Die Konfiguration dafür liegt in `workshop-ui/src/primeVue.ts`.
+
+### Lodash
+Fürs filtern der Angestellten wollen wir nicht nach jedem Buchstaben einen Request ins Backend abschicken.
+Wir verwenden hier ein sogenanntes **Debouncing**, um nur nach X Sekunden wo sich der Input nicht mehr ändert einen Request abzuschicken.
+
+Das schreiben wir nicht selber, sondern verwenden von Lodash, einer Utility Library die eine Menge 
+nützlicher Funktionen mitliefert.
+
+Hierfür gibt es keine Konfiguration, einfach per npm installieren, in die `tsconfig.app.json` als `type` definieren.
+
+### Vue Router
+Um zwischen den verschiedenen Seiten zu navigieren verwenden wir Vue Router, die Konfigration hierfür liegt in `workshop-ui/src/router`
 
 ## Projekt-Skelett selbst aufsetzen
 Für ein ähnliches Setup gibt es die nachfolgende Anleitung:
