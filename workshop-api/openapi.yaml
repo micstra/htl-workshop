@@ -10,12 +10,11 @@ info:
 servers:
   - url: /api
 
-
 paths:
   /employees:
     description: Receive a list of all employees
     get:
-      operationId: findAllEmployees
+      operationId: listEmployees
       tags:
         - employee
       responses:
@@ -26,11 +25,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ReadEmployeeDto"
+                  $ref: "#/components/schemas/EmployeeListEntryDTO"
 
 components:
   schemas:
-    ReadEmployeeDto:
+    EmployeeListEntryDTO:
       required:
         - id
         - firstName

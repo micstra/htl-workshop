@@ -1,9 +1,3 @@
-buildscript {
-    ext {
-        springVersion = project.properties.get("spring.version")
-    }
-}
-
 plugins {
     id "org.jetbrains.kotlin.jvm" version "1.6.21"
     id "org.jetbrains.kotlin.plugin.spring" version "1.6.21"
@@ -12,20 +6,15 @@ plugins {
 }
 
 dependencies {
-    // configure spring-boot-platform-versions
-    // this enables to omit version-numbers is you include a dependency used by spring-boot
-    implementation platform("org.springframework.boot:spring-boot-dependencies:$springVersion")
-
-    implementation project(":workshop-db")
-
     implementation "org.springframework.boot:spring-boot-starter-web"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "io.mockk:mockk"
 }
 
-repositories {
-    mavenLocal()
-    mavenCentral()
+test {
+    useJUnitPlatform()
 }
-
 
 // ############### here starts the api-generation-configuration ##################################
 

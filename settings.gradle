@@ -2,5 +2,6 @@ rootProject.name = 'htl-workshop'
 
 include 'workshop-api'
 include 'workshop-ui'
-include 'workshop-db'
+include 'workshop-persistence'
 include 'workshop-service'
+include 'workshop-server'

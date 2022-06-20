@@ -1,7 +1,42 @@
 version = 1.0
 group = "io.cloudflight.htl-workshop"
 
-subprojects { proj ->
-    proj.version = parent.version
-    proj.group = parent.group
+subprojects { project ->
+    project.version = parent.version
+    project.group = parent.group
+
+    if (isJavaProject(project) || isKotlinProject(project)) {
+        project.apply plugin: 'java-library'
+
+        buildscript {
+            ext {
+                springVersion = project.properties.get("spring.version")
+            }
+        }
+
+        repositories {
+            mavenLocal()
+            mavenCentral()
+        }
+
+        dependencies {
+            // configure spring-boot-platform-versions
+            // this enables to omit version-numbers is you include a dependency used by spring-boot
+            implementation platform("org.springframework.boot:spring-boot-dependencies:$springVersion")
+
+
+            constraints {
+                implementation "io.mockk:mockk:1.12.4"
+                implementation 'com.h2database:h2:1.4.194'
+            }
+        }
+    }
+}
+
+static boolean isJavaProject(Project project) {
+    return project.file('src/main/java/').exists() || project.file('src/test/java/').exists()
+}
+
+static boolean isKotlinProject(Project project) {
+    return project.file('src/main/kotlin/').exists() || project.file('src/test/kotlin/').exists()
 }

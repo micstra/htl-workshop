@@ -33,19 +33,23 @@ export default defineComponent({
     <TabMenu :model="menuEntries" />
   </header>
 
-  <RouterView />
+  <RouterView class="router-view" />
 </template>
 
 <style>
 @import 'assets/base.css';
 
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
 header {
-  position: fixed;
   height: 100px;
   width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
   background-color: #1245f0;
 }
 
@@ -66,8 +70,13 @@ header img {
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .router-view {
     padding: 0 2rem;
   }
 
