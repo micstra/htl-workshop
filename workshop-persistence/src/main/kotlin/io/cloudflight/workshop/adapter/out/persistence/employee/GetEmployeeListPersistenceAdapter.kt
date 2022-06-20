@@ -2,7 +2,6 @@ package io.cloudflight.workshop.adapter.out.persistence.employee
 
 import io.cloudflight.workshop.application.usecase.EmployeeListEntry
 import io.cloudflight.workshop.application.usecase.GetEmployeeListPort
-import io.cloudflight.workshop.repositories.EmployeeRepository
 import org.springframework.stereotype.Service
 
 @Service

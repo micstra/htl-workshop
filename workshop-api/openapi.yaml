@@ -26,6 +26,27 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/EmployeeListEntryDTO"
+  /employee/{id}:
+    description: Receive details about a single employee
+    get:
+      operationId: findEmployeeDetails
+      tags:
+        - employee
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Details about an exisiting employee.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmployeeWithTasksDTO"
+        '404':
+          description: No employee was found with the given id.
 
 components:
   schemas:
@@ -42,3 +63,38 @@ components:
           type: string
         lastName:
           type: string
+    EmployeeWithTasksDTO:
+      required:
+        - id
+        - firstName
+        - lastName
+        - tasks
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/TaskDto"
+    TaskDto:
+      required:
+        - id
+        - description
+        - finished
+        - hoursWorked
+      properties:
+        id:
+          type: integer
+          format: int32
+        description:
+          type: string
+        finished:
+          type: string
+          format: date
+        hoursWorked:
+          type: integer
+          format: int32
