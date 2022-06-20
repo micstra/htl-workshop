@@ -28,11 +28,18 @@ tasks.findByName("openApiGenerate").dependsOn(cleanTarget)
 node {
     download = true
     version = '16.15.0'
-    yarnVersion = '1.22.18'
 }
 
 task npmBuild(type: NpmTask) {
     args = ["run", "build"]
+}
+
+task npmDev(type: NpmTask) {
+    args = ["run", "dev"]
+}
+
+task npmLint(type: NpmTask) {
+    args = ["run", "lint"]
 }
 
 // ################## here ends node-plugin-configuration #########################
