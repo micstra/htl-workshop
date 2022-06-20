@@ -10,12 +10,19 @@ internal class GetEmployeeListPersistenceAdapter(
 ) : GetEmployeeListPort {
     override fun getEmployeeList(): List<EmployeeListEntry> {
         return employeeRepository.findAll()
-            .map {
-                EmployeeListEntry(
-                    id = it.id,
-                    firstName = it.firstName,
-                    lastName = it.lastName,
-                )
-            }
+            .map { it.toDTO() }
     }
+
+    override fun getFilteredEmployeeList(partialName: String): List<EmployeeListEntry> {
+        return employeeRepository.findAllByFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(
+            firstName = partialName,
+            lastName = partialName,
+        ).map { it.toDTO() }
+    }
+
+    private fun Employee.toDTO() = EmployeeListEntry(
+        id = this.id,
+        firstName = this.firstName,
+        lastName = this.lastName,
+    )
 }

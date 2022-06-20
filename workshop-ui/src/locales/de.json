@@ -5,8 +5,10 @@
   },
   "employeeList": {
     "headers": {
+      "table": "Angestellte",
       "firstName": "Vorname",
       "lastName": "Nachname"
-    }
+    },
+    "filterPlaceholder": "Name"
   }
 }
