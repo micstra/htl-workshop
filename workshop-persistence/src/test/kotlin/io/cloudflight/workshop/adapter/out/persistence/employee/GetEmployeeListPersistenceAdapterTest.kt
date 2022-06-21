@@ -44,7 +44,7 @@ internal class GetEmployeeListPersistenceAdapterTest(
         fun `returns all employees`() {
             val employeeList = getEmployeeListPersistenceAdapter.getEmployeeList()
 
-            assertThat(employeeList).isNotNull.hasSize(2)
+            assertThat(employeeList).isNotNull
             assertThat(employeeList.map { it.firstName }).containsExactly("Franz", "Barbara", "Fritz")
         }
     }
