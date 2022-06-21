@@ -24,7 +24,7 @@ onMounted(async () => {
 </script>
 <template>
   <main class="detail-container">
-
+    <h2>Employee-Details</h2>
     <h2>Employee:</h2>
 
     <update-employee :id="employee.employeeId"
