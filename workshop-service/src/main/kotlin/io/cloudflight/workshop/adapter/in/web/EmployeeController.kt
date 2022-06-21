@@ -24,6 +24,13 @@ class EmployeeController(
         )
     }
 
+    override fun listFilteredEmployees(partialName: String?): ResponseEntity<List<EmployeeListEntryDTO>> {
+        return ResponseEntity.ok(
+            getEmployeeListUseCase.getEmployeeList(partialName = partialName)
+                .map { it.toDTO() }
+        )
+    }
+
     private fun EmployeeListEntry.toDTO(): EmployeeListEntryDTO {
         return EmployeeListEntryDTO().also {
             it.id = id

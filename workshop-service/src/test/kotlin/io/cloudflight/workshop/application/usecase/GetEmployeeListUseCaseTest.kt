@@ -13,10 +13,27 @@ internal class GetEmployeeListUseCaseTest {
     )
 
     @Test
-    fun `fetches data from persistence port`() {
+    fun `fetches employees without filtering if no partialName is passed`() {
         getEmployeeListUseCase.getEmployeeList()
 
         verify(exactly = 1) { getEmployeeListPort.getEmployeeList() }
+        verify(exactly = 0) { getEmployeeListPort.getFilteredEmployeeList(any()) }
+    }
+
+    @Test
+    fun `fetches employees without filtering if partialName is blank string`() {
+        getEmployeeListUseCase.getEmployeeList(partialName = "      ")
+
+        verify(exactly = 1) { getEmployeeListPort.getEmployeeList() }
+        verify(exactly = 0) { getEmployeeListPort.getFilteredEmployeeList(any()) }
+    }
+
+    @Test
+    fun `fetches filtered employees if partialName is not null`() {
+        getEmployeeListUseCase.getEmployeeList(partialName = "Fra")
+
+        verify(exactly = 1) { getEmployeeListPort.getFilteredEmployeeList(eq("Fra")) }
+        verify(exactly = 0) { getEmployeeListPort.getEmployeeList() }
     }
 
 }

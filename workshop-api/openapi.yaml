@@ -26,6 +26,26 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/EmployeeListEntryDTO"
+    post:
+      summary: fetches list containing employees filtered by partial name
+      operationId: listFilteredEmployees
+      tags:
+        - employee
+      parameters:
+        - name: partialName
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of existing employees containing the partial name
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmployeeListEntryDTO"
+
   /employee/{id}:
     description: Receive details about a single employee
     get:
