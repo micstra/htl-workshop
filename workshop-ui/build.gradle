@@ -42,4 +42,6 @@ task npmLint(type: NpmTask) {
     args = ["run", "lint"]
 }
 
+npmInstall.dependsOn(tasks.findByName("openApiGenerate"))
+
 // ################## here ends node-plugin-configuration #########################

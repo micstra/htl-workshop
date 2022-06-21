@@ -50,4 +50,5 @@ sourceSets {
     }
 }
 
+tasks.findByName("compileKotlin").dependsOn(tasks.findByName("openApiGenerate"))
 // ############### here ends the api-generation-configuration ###################################
