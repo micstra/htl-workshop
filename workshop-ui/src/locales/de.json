@@ -10,5 +10,15 @@
       "lastName": "Nachname"
     },
     "filterPlaceholder": "Name"
+  },
+  "employeeDetails": {
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "tasks": {
+      "description": "Beschreibung",
+      "finishedAt": "Fertiggestellt am",
+      "hoursWorked": "Stunden investiert"
+    }
   }
 }
+

@@ -3,24 +3,23 @@ package io.cloudflight.workshop.adapter.`in`.web
 import io.cloudflight.workshop.api.EmployeeApiDelegate
 import io.cloudflight.workshop.api.model.EmployeeListEntryDTO
 import io.cloudflight.workshop.api.model.EmployeeWithTasksDTO
-import io.cloudflight.workshop.api.model.TaskDto
-import io.cloudflight.workshop.application.usecase.EmployeeDetails
-import io.cloudflight.workshop.application.usecase.EmployeeListEntry
-import io.cloudflight.workshop.application.usecase.GetEmployeeDetailsUseCase
-import io.cloudflight.workshop.application.usecase.GetEmployeeListUseCase
+import io.cloudflight.workshop.api.model.TaskDTO
+import io.cloudflight.workshop.api.model.UpdateEmployeeDTO
+import io.cloudflight.workshop.application.usecase.*
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
 @Service
 class EmployeeController(
-    private val getEmployeeListUseCase: GetEmployeeListUseCase,
-    private val getEmployeeDetailsUseCase: GetEmployeeDetailsUseCase
+        private val getEmployeeListUseCase: GetEmployeeListUseCase,
+        private val getEmployeeDetailsUseCase: GetEmployeeDetailsUseCase,
+        private val saveOrUpdateEmployeeUseCase: SaveOrUpdateEmployeeUseCase
 ) : EmployeeApiDelegate {
 
     override fun listEmployees(): ResponseEntity<List<EmployeeListEntryDTO>> {
         return ResponseEntity.ok(
-            getEmployeeListUseCase.getEmployeeList()
-                .map { it.toDTO() }
+                getEmployeeListUseCase.getEmployeeList()
+                        .map { it.toDTO() }
         )
     }
 
@@ -52,7 +51,7 @@ class EmployeeController(
             it.lastName = employeeInfo.lastName
 
             it.tasks = tasks.map { taskInfo ->
-                TaskDto().also { taskDto ->
+                TaskDTO().also { taskDto ->
                     taskDto.id = taskInfo.id
                     taskDto.description = taskInfo.description
                     taskDto.finished = taskInfo.finishedAt
@@ -60,5 +59,10 @@ class EmployeeController(
                 }
             }
         }
+    }
+
+    override fun saveOrUpdateEmployee(id: String, updateEmployeeDTO: UpdateEmployeeDTO): ResponseEntity<Void> {
+        saveOrUpdateEmployeeUseCase.saveOrUpdate(id, updateEmployeeDTO.firstName, updateEmployeeDTO.lastName)
+        return ResponseEntity.ok().build()
     }
 }

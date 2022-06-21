@@ -48,16 +48,16 @@ paths:
 
   /employee/{id}:
     description: Receive details about a single employee
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
     get:
       operationId: findEmployeeDetails
       tags:
         - employee
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: Details about an exisiting employee.
@@ -67,9 +67,32 @@ paths:
                 $ref: "#/components/schemas/EmployeeWithTasksDTO"
         '404':
           description: No employee was found with the given id.
-
+    post:
+      operationId: saveOrUpdateEmployee
+      tags:
+        - employee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEmployeeDTO'
+      responses:
+        '200':
+          description: Employee update was successful
+        '400':
+          description: Employee validation failed
 components:
   schemas:
+    UpdateEmployeeDTO:
+      required:
+        - firstName
+        - lastName
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
     EmployeeListEntryDTO:
       required:
         - id
@@ -99,8 +122,8 @@ components:
         tasks:
           type: array
           items:
-            $ref: "#/components/schemas/TaskDto"
-    TaskDto:
+            $ref: "#/components/schemas/TaskDTO"
+    TaskDTO:
       required:
         - id
         - description

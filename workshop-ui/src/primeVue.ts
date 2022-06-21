@@ -19,4 +19,5 @@ export default function registerPrimeVueComponents(app: App<Element>) {
     app.component('Column', Column);
     app.component('InputText', InputText)
     app.component('Button', Button)
+
 }
