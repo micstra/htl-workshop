@@ -1,53 +1,28 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.6.21"
-    id "org.jetbrains.kotlin.plugin.spring" version "1.6.21"
-    id "org.openapi.generator" version "6.0.0"
+    id 'io.cloudflight.autoconfigure.swagger-codegen-configure'
 }
 
 dependencies {
+    swaggerApi project(':workshop-api')
+
     implementation "org.springframework.boot:spring-boot-starter-web"
+
+    implementation 'io.swagger.core.v3:swagger-annotations:2.2.2'
+    implementation 'javax.validation:validation-api'
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "io.mockk:mockk"
 }
 
-test {
-    useJUnitPlatform()
-}
-
-// ############### here starts the api-generation-configuration ##################################
-
-openApiGenerate {
-    inputSpec = project(":workshop-api").file('openapi.yaml').canonicalPath
-    generatorName = "spring"
-    outputDir = file("/target/generated-server/").canonicalPath
-    apiPackage = "io.cloudflight.workshop.api"
-    modelPackage = "io.cloudflight.workshop.api.model"
-
-    additionalProperties = [
-            "useTags"              : true, // use tags as prefix for generated apis
-            "documentationProvider": "none", // do not include swagger-metadata annotations
-            "gradleBuildFile"      : false,
-            "exceptionHandler"     : false,
-            "delegatePattern"      : true,
-            "useBeanValidation"    : false,
-            "openApiNullable"      : false
-    ]
-}
-
-task cleanTarget(type: Delete) {
-    delete "target"
-}
-
-// delete target-folder before regenerating to prevent error-prone file-merging
-tasks.findByName("clean").dependsOn(cleanTarget)
-tasks.findByName("openApiGenerate").dependsOn(cleanTarget)
-
-sourceSets {
-    main {
-        java.srcDir("$projectDir/target/generated-server/src/main/java")
+swaggerSources {
+    'workshop-api' {
+        code {
+            components = [apis: true, models: true, apiTests: false, supportingFiles: false]
+            additionalProperties = [
+                    'invokerPackage': "io.cloudflight.workshop.api",
+                    'apiPackage'    : "io.cloudflight.workshop.api",
+                    'modelPackage'  : "io.cloudflight.workshop.api.model"
+            ]
+        }
     }
 }
-
-tasks.findByName("compileKotlin").dependsOn(tasks.findByName("openApiGenerate"))
-// ############### here ends the api-generation-configuration ###################################

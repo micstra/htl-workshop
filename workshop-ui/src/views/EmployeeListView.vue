@@ -7,7 +7,7 @@ import Column from 'primevue/column';
 import type DataTable from 'primevue/datatable';
 import type { DataTableRowSelectEvent } from 'primevue/datatable';
 import { onMounted, Ref, ref } from 'vue';
-import type { EmployeeListEntryDTO } from 'workshop-client/generated-client';
+import type { EmployeeListEntryDTO } from 'workshop-client';
 
 const employeeList: Ref<EmployeeListEntryDTO[]> = ref([]);
 

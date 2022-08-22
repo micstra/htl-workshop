@@ -1,5 +1,5 @@
 import { employeeApi } from '@/api';
-import type { EmployeeListEntryDTO, ListFilteredEmployeesRequest } from 'workshop-client/generated-client';
+import type { EmployeeListEntryDTO, ListFilteredEmployeesRequest } from 'workshop-client';
 
 class EmployeeListService {
 
