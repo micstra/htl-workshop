@@ -1,47 +1,17 @@
 plugins {
-    id "org.openapi.generator" version "6.0.0"
-    id "com.github.node-gradle.node" version "3.3.0"
-
+    id("io.cloudflight.autoconfigure.node-configure")
+    id 'io.cloudflight.autoconfigure.swagger-codegen-configure'
 }
 
-// ################## here starts openapi-plugin-configuration #########################
-
-openApiGenerate {
-    inputSpec = project(":workshop-api").file('openapi.yaml').canonicalPath
-    generatorName = "typescript-fetch"
-    outputDir = file("/target/generated-client/").canonicalPath
-
+dependencies {
+    swaggerApi project(':workshop-api')
+    swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.35'
 }
 
-task cleanTarget(type: Delete) {
-    delete = 'target'
+swaggerSources {
+    'workshop-api' {
+        code {
+            language = 'typescript-fetch'
+        }
+    }
 }
-
-tasks.findByName("openApiGenerate").dependsOn(cleanTarget)
-
-// ################## here ends openapi-plugin-configuration #########################
-
-
-
-// ################## here starts node-plugin-configuration #########################
-
-node {
-    download = true
-    version = '16.15.0'
-}
-
-task npmBuild(type: NpmTask) {
-    args = ["run", "build"]
-}
-
-task npmDev(type: NpmTask) {
-    args = ["run", "dev"]
-}
-
-task npmLint(type: NpmTask) {
-    args = ["run", "lint"]
-}
-
-npmInstall.dependsOn(tasks.findByName("openApiGenerate"))
-
-// ################## here ends node-plugin-configuration #########################

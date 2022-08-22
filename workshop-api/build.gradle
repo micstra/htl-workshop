@@ -1,0 +1,7 @@
+apply plugin: 'java-library'
+
+artifacts.add(JavaPlugin.API_ELEMENTS_CONFIGURATION_NAME, file('openapi.yaml')) {
+    name project.name
+    classifier 'swagger'
+    type 'yaml'
+}

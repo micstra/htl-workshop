@@ -14,7 +14,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),
-            'workshop-client': fileURLToPath(new URL('./target', import.meta.url))
+            'workshop-client': fileURLToPath(new URL('./build/swagger-code-workshop-api', import.meta.url))
         }
     }
 })

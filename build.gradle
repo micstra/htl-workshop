@@ -1,23 +1,25 @@
+plugins {
+    id("io.cloudflight.autoconfigure-gradle") version "0.6.5"
+}
+
 version = 1.0
 group = "io.cloudflight.htl-workshop"
+
+autoConfigure {
+    java {
+        vendorName.set("Cloudflight")
+    }
+}
 
 subprojects { project ->
     project.version = parent.version
     project.group = parent.group
 
-    if (isJavaProject(project) || isKotlinProject(project)) {
-        project.apply plugin: 'java-library'
+    repositories {
+        mavenCentral()
+    }
 
-        buildscript {
-            ext {
-                springVersion = project.properties.get("spring.version")
-            }
-        }
-
-        repositories {
-            mavenLocal()
-            mavenCentral()
-        }
+    if (project.plugins.hasPlugin(JavaLibraryPlugin)) {
 
         dependencies {
             // configure spring-boot-platform-versions
@@ -31,12 +33,4 @@ subprojects { project ->
             }
         }
     }
-}
-
-static boolean isJavaProject(Project project) {
-    return project.file('src/main/java/').exists() || project.file('src/test/java/').exists()
-}
-
-static boolean isKotlinProject(Project project) {
-    return project.file('src/main/kotlin/').exists() || project.file('src/test/kotlin/').exists()
 }

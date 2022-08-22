@@ -1,4 +1,4 @@
-import type {EmployeeWithTasksDTO, TaskDTO} from "workshop-client/generated-client";
+import type {EmployeeWithTasksDTO, TaskDTO} from "workshop-client";
 import {employeeApi} from "@/api";
 import type {EmployeeFormData} from "@/components/employee/domain/EmployeeFormData";
 
